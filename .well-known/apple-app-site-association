@@ -5,8 +5,10 @@
         "appID": "A7Z3499ZHS.com.esri.MyMercy",
         "components": [
           {
-            "/": "mymercy-phase1",
-            "?": { "code": "?*" }
+            {
+              "/": "/mymercy-phase1/*",
+              "comment": "Matches any URL with a path starting with mymercy-phase1"
+            }
           }
         ]
       }
