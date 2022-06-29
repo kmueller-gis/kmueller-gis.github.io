@@ -1,9 +1,10 @@
 {
   "applinks": {
+    "apps": [],
     "details": [
       {
         "appID": "A7Z3499ZHS.com.esri.MyMercy",
-        "paths": ["/mymercy-phase1/"]
+        "paths": ["/mymercy-phase1/*"]
       }
     ]
   }
