@@ -5,7 +5,11 @@
       {
         "appID": "23PX5GD8E6.com.esri.MyMercy",
         "paths": ["/mymercy-phase1/*"]
-      }
+      },
+      {
+        "appID": "23PX5GD8E6.com.esri.MyMercy-POC1",
+        "paths": ["/mymercy-phase1/*"]
+      }      
     ]
   }
 }
