@@ -49,6 +49,7 @@
 
       esriId.registerOAuthInfos([oauthInfo]);
       esriId.checkSignInStatus(oauthInfo.portalURL + "/sharing").then(() => {
+        console.log('Displaying Map');
         displayMap();
       }).catch(() => {
         // Anonymous view
