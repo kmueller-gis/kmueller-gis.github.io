@@ -77,19 +77,17 @@
             }
           });
 
+          /************************************************************
+           * Set the WebMap instance to the map property in a MapView.
+           ************************************************************/
+          const view = new MapView({
+            map: webmap,
+            container: "viewDiv"
+          });
+  
           anonPanelElement.style.display = "none";
           personalPanelElement.style.display = "block";
-        })
-
-
-        /************************************************************
-         * Set the WebMap instance to the map property in a MapView.
-         ************************************************************/
-        const view = new MapView({
-          map: webmap,
-          container: "viewDiv"
         });
-
       }
 
     });
