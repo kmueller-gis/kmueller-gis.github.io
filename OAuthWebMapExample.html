@@ -1,0 +1,108 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Load a basic WebMap | Sample | ArcGIS Maps SDK for JavaScript 4.26</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .action {
+      color: blue;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
+
+  <script src="https://js.arcgis.com/4.26/"></script>
+
+  <script>
+    require([
+      "esri/views/MapView",
+      "esri/identity/OAuthInfo",
+      "esri/identity/IdentityManager",
+      "esri/portal/Portal",
+      "esri/portal/PortalItem",
+      "esri/WebMap"
+    ], (MapView, OAuthInfo, esriId, Portal, PortalItem, WebMap) => {
+      const personalPanelElement = document.getElementById("personalizedPanel");
+      const anonPanelElement = document.getElementById("anonymousPanel");
+      const userIdElement = document.getElementById("userId");
+      const portalURL = "https://prof-services.maps.arcgis.com";
+
+      const oauthInfo = new OAuthInfo({
+        appId: "pJxF3Khl1viMQF2b",
+        portalURL: portalURL,
+        popup: false,
+        preserveUrlHash: true
+      });
+
+      esriId.registerOAuthInfos([oauthInfo]);
+      esriId.checkSignInStatus(oauthInfo.portalURL + "/sharing").then(() => {
+        displayMap();
+      }).catch(() => {
+        // Anonymous view
+        anonPanelElement.style.display = "block";
+        personalPanelElement.style.display = "none";
+      });
+
+      document.getElementById("sign-in").addEventListener("click", () => {
+        // user will be redirected to OAuth Sign In page
+        esriId.getCredential(oauthInfo.portalUrl + "/sharing");
+      });
+
+      function displayMap() {
+        const psPortal = new Portal({
+          url: portalURL
+        });
+
+        psPortal.authMode = "immediate";
+        psPortal.load().then(() => {
+          const webmap = new WebMap({
+            portalItem: {
+              // autocasts as new PortalItem()
+              id: "a19794780ee8426da9782d238adbbc9d",
+              portal: psPortal
+            }
+          });
+
+          anonPanelElement.style.display = "none";
+          personalPanelElement.style.display = "block";
+        })
+
+
+        /************************************************************
+         * Set the WebMap instance to the map property in a MapView.
+         ************************************************************/
+        const view = new MapView({
+          map: webmap,
+          container: "viewDiv"
+        });
+
+      }
+
+    });
+  </script>
+</head>
+
+<body>
+  <div id="anonymousPanel" style="display: none; padding: 5px; text-align: center;">
+    <span id="sign-in" class="action">Sign In</span> and view your ArcGIS Online items.
+  </div>
+
+  <div id="personalizedPanel" style="display: none; padding: 5px; text-align: center;">
+    <div id="viewDiv"></div>
+  </div>
+</body>
+
+</html>
